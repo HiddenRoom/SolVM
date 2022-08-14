@@ -24,6 +24,6 @@ assemblerT *assembler_init(const char *inputFile, uint64_t fileLen); //only need
 
 lexerT *lexer_init(const char *inputFile, uint64_t fileLen);
 
-void parse_tokens(assemblerT *assembler); //will implement logic for each instruction
+void parse_tokens_to_ins(assemblerT *assembler); //will implement logic for each instruction
 
 #endif
