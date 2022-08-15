@@ -11,7 +11,17 @@ int main(int argc, char **argv)
   uint32_t fdIn = open(argv[1], O_RDONLY);
   uint32_t fileLen = lseek(fdIn, 0, SEEK_END);
 
-  char *inputFile = mmap(
+  char *inputFile;
+
+  assemblerT *assembler;
+
+  if(argc < 2)
+  {
+    fprintf(stderr, "No input file given\n");
+    return 1;
+  }
+
+  inputFile = mmap(
       NULL,
       fileLen,
       PROT_READ,
@@ -19,7 +29,7 @@ int main(int argc, char **argv)
       fdIn,
       0);
 
-  assemblerT *assembler = assembler_init(inputFile, fileLen);
+  assembler = assembler_init(inputFile, fileLen);
 
   printf("Tokens detected:%d\n\n", assembler->lexedInput->tokenNum);
 
@@ -28,7 +38,11 @@ int main(int argc, char **argv)
   {
     printf("%s\n", assembler->lexedInput->tokenVals[i]);
   }
-  
+
+  printf("\n\n");
+
+  printf("Number of instructions detected:%u", assembler->insNum);
+
   printf("\n\n");
 
   parse_tokens_to_ins(assembler);

@@ -1,1 +1,2 @@
-CMP R1, R7
+LDM R1, 400
+CMP R3, R4
