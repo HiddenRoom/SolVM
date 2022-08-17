@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
   uint64_t i;
   uint32_t fdIn = open(argv[1], O_RDONLY);
-  uint32_t fdOut = open(argv[2], O_CREAT, S_IRUSR | S_IWUSR);
+  uint32_t fdOut = open(argv[2], O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
   uint32_t inLen = lseek(fdIn, 0, SEEK_END);
   uint32_t outLen;
 
@@ -35,14 +35,14 @@ int main(int argc, char **argv)
 
   assembler = assembler_init(inputFile, inLen);
 
-  outLen = assembler->insNum * sizeof(uint8_t);
+  outLen = assembler->insNum * (INS_NUM * sizeof(uint8_t));
 
   outputFile = mmap(
       NULL,
       outLen,
-      PROT_READ | PROT_WRITE,
+      PROT_WRITE,
       MAP_SHARED,
-      fdOut + 1000,
+      fdOut,
       0);
 
   for(i = 0; i < assembler->insNum; i++)

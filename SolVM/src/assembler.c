@@ -86,6 +86,10 @@ bool _is_ins(char *insStr)
   {
     return true;
   }
+  else if(strcmp(insStr, "INT") == 0) 
+  {
+    return true;
+  }
   else if(strcmp(insStr, "HLT") == 0) 
   {
     return true;
@@ -154,6 +158,19 @@ void _copy_val(assemblerT *assembler)
   memcpy((assembler->instruct) + 2, &tmpInsHold, sizeof(uint16_t));
 }
 
+void _two_reg(assemblerT *assembler)
+{
+    assembler->instruct[2] = 0x00; /* unused */
+
+    assembler->tokenReadOffset++;
+
+    assembler->instruct[1] = _reg_get(assembler->lexedInput->tokenVals[assembler->tokenReadOffset]);
+
+    assembler->tokenReadOffset++;
+
+    assembler->instruct[3] = _reg_get(assembler->lexedInput->tokenVals[assembler->tokenReadOffset]);
+}
+
 assemblerT *assembler_init(const char *inputFile, uint64_t fileLen) /* only needs parameters to pass them to lexer_init */
 {
   uint32_t i;
@@ -201,15 +218,8 @@ void parse_tokens_to_ins(assemblerT *assembler) /* will implement logic for pars
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "CMP") == 0) 
   {
     assembler->instruct[0] = 0x02;
-    assembler->instruct[2] = 0x00; /* unused */
 
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[1] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
-
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[3] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
+    _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "LDV") == 0) 
   {
@@ -226,15 +236,8 @@ void parse_tokens_to_ins(assemblerT *assembler) /* will implement logic for pars
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "LDR") == 0) 
   {
     assembler->instruct[0] = 0x04;
-    assembler->instruct[2] = 0x00; /* unused */
 
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[1] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
-
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[3] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
+    _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "LDM") == 0) 
   {
@@ -263,67 +266,32 @@ void parse_tokens_to_ins(assemblerT *assembler) /* will implement logic for pars
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "ADD") == 0) 
   {
     assembler->instruct[0] = 0x07;
-    assembler->instruct[2] = 0x00; /* unused */
 
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[1] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
-
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[3] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
+    _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "SUB") == 0) 
   {
     assembler->instruct[0] = 0x08;
-    assembler->instruct[2] = 0x00; /* unused */
 
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[1] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
-
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[3] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
+    _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "BXR") == 0) 
   {
     assembler->instruct[0] = 0x09;
-    assembler->instruct[2] = 0x00; /* unused */
 
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[1] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
-
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[3] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
+    _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "BOR") == 0) 
   {
     assembler->instruct[0] = 0x0A;
-    assembler->instruct[2] = 0x00; /* unused */
 
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[1] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
-
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[3] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
+    _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "BND") == 0) 
   {
     assembler->instruct[0] = 0x0B;
-    assembler->instruct[2] = 0x00; /* unused */
 
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[1] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
-
-    assembler->tokenReadOffset++;
-
-    assembler->instruct[3] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
+    _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "BNT") == 0) 
   {
@@ -333,14 +301,23 @@ void parse_tokens_to_ins(assemblerT *assembler) /* will implement logic for pars
 
     memset((assembler->instruct) + 2, 0, 2 * sizeof(uint8_t));
   }
-  else if(strcmp(tokenStrs[assembler->tokenReadOffset], "HLT") == 0) 
+  else if(strcmp(tokenStrs[assembler->tokenReadOffset], "INT") == 0) 
   {
     assembler->instruct[0] = 0x0D;
+    assembler->instruct[1] = 0x00;
+
+    assembler->tokenReadOffset++;
+
+    _copy_val(assembler);
+  }
+  else if(strcmp(tokenStrs[assembler->tokenReadOffset], "HLT") == 0) 
+  {
+    assembler->instruct[0] = 0x0E;
     memset((assembler->instruct) + 1, 0, 3 * sizeof(uint8_t));
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "NOP") == 0) 
   {
-    assembler->instruct[0] = 0x0E;
+    assembler->instruct[0] = 0x0F;
     memset((assembler->instruct) + 1, 0, 3 * sizeof(uint8_t));
   }
   else /* turns anything unrecognized into NOP */
