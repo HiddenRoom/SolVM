@@ -1,7 +1,7 @@
-#include <stdint.h>
-
 #ifndef ASSEMBLER_H
 #define ASSEMBLER_H
+
+#include <stdint.h>
 
 #define INS_NUM 4
 

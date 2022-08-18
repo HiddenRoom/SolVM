@@ -37,6 +37,7 @@ int main(int argc, char **argv)
 
   outLen = assembler->insNum * (INS_NUM * sizeof(uint8_t));
 
+  ftruncate(fdOut, outLen);
   outputFile = mmap(
       NULL,
       outLen,
