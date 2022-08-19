@@ -4,4 +4,6 @@ data but this is unlikely since the string "glibc" seems to pop up alot and i do
 opcode is overwriting operand and first part of value in each instruction with itself
 for example: JMP 258 becomes 0x00 0x00 0x00 0x02 instead of 0x00 0x00 0x01 0x02
 
-OPEN: assembler segfaults but all tests work
+assembler segfaults but all tests work
+
+OPEN:

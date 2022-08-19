@@ -8,22 +8,22 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef void *(*outputDevice)(void *);
+typedef void *(*device)(void *);
 
 typedef struct VMStruct
 {
   uint8_t RAM[SXTN_BIT_MAX];
   uint16_t regs[REG_NUM];
-  bool cmpFlag[2];
+  uint8_t flagReg[2];
 
   uint8_t currentIns[INS_LEN];
   uint16_t execAddr;
 
-  uint16_t outDevNum;
-  outputDevice *outDevs; /* will be called by int instructions and must be defined in src/output.c and src/include/output.h */
+  uint16_t devNum;
+  device *devs; /* will be called by int instructions and must be defined in src/output.c and src/include/output.h */
 } vmT;
 
 
-vmT *vm_init(uint8_t outDevNum, outputDevice *outDevs);
+vmT *vm_init(uint8_t outDevNum, device *devs);
 
 #endif

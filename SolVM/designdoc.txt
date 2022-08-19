@@ -6,7 +6,7 @@ GOALS:
 
 8 registers named R0 (0x00), R1 (0x01), R2 (0x02), etc
 
-cmp flag will be two bools upon a greater than result the bools will be 1 0 upon a less than result they will be 0 1 and upon an equal result they will be 0 0
+cmp flag will be two uint8_t upon a greater than result the bools will be 1 0 upon a less than result they will be 0 1 and upon an equal result they will be 0 0
 
 for below examples when a register is needed R5 will be used unless otherwise specified, example memory address will be 0xFEED, example value will be 0xBEEF
 
