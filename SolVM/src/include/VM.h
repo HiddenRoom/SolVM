@@ -16,7 +16,7 @@ typedef struct VMStruct
   uint16_t regs[REG_NUM];
   uint8_t flagReg[2];
 
-  uint8_t currentIns[INS_LEN];
+  uint8_t *currentIns;
   uint16_t execAddr;
 
   uint16_t devNum;

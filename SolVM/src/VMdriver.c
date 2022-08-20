@@ -10,15 +10,19 @@
 
 #define DEV_NUM 1
 
+typedef void (*instruct)(vmT *vm);
+
 int main(int argc, char **argv)
 {
   uint32_t fdIn = open(argv[1], O_RDONLY);
   uint32_t inLen = lseek(fdIn, 0, SEEK_END);
   uint8_t *inputFile;
 
+  instruct instructions[] = {JMP, JNE, CMP, LDV, LDR, LDM, STR, ADD, SUB, BXR, BOR, BND, BNT, INT, HLT, NOP};
+
   vmT *vm;
 
-  device *devs = {ascii_stdout};
+  device devs[] = {ascii_stdout};
 
   if(argc < 2)
   {
@@ -39,7 +43,7 @@ int main(int argc, char **argv)
   while(vm->execAddr < inLen) /* TODO: jump instructions may not work with consistent increment */ 
   {
     vm->currentIns = inputFile + vm->execAddr;
-    instructions[vm->currentIns](vm);
+    instructions[vm->currentIns[0]](vm);
   }
 
   return 0;

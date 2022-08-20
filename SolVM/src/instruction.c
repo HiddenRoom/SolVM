@@ -42,84 +42,84 @@ void CMP(vmT *vm)
     vm->flagReg[1] = 0;
   }
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void LDV(vmT *vm) 
 {
   REG(1) = INS_VAL;
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void LDR(vmT *vm) 
 {
   REG(1) = REG(3);
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void LDM(vmT *vm) 
 {
   REG(1) = vm->RAM[INS_VAL];
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void STR(vmT *vm) 
 {
   vm->RAM[INS_VAL] = REG(1);
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void ADD(vmT *vm) 
 {
   REG(1) += REG(3);
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void SUB(vmT *vm) 
 {
   REG(1) -= REG(3);
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void BXR(vmT *vm) 
 {
   REG(1) ^= REG(3);
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void BOR(vmT *vm)
 {
   REG(1) |= REG(3);
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void BND(vmT *vm)
 {
   REG(1) &= REG(3);
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void BNT(vmT *vm)
 {
   REG(1) = ~(REG(3));
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void INT(vmT *vm)
 {
-  vm->devs[INS_VAL](vm);
+  (vm->devs[INS_VAL])(vm);
 
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }
 
 void HLT(vmT *vm)
@@ -128,10 +128,10 @@ void HLT(vmT *vm)
   {
   }
 
-  vm->execAddr -= 4; /* never happens :v */
+  vm->execAddr += 4; /* never happens :v */
 }
 
 void NOP(vmT *vm)
 {
-  vm->execAddr -= 4;
+  vm->execAddr += 4;
 }

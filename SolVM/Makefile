@@ -17,7 +17,8 @@ emutest: src/VM.c src/include/VM.h src/interrupt.c src/include/interrupt.h src/i
 emu: src/VM.c src/include/VM.h src/interrupt.c src/include/interrupt.h src/instruction.c src/include/instruction.h src/VMdriver.c
 	$(CC) $(CFLAGS) -c -o VM.o src/VM.c
 	$(CC) $(CFLAGS) -c -o interrupt.o src/interrupt.c
-	$(CC) $(CFLAGS) -o VM.out VM.o interrupt.o src/VMdriver.c
+	$(CC) $(CFLAGS) -c -o instruction.o src/instruction.c
+	$(CC) $(CFLAGS) -o VM.out VM.o interrupt.o instruction.o src/VMdriver.c
 
 clean: 
 	rm *.o
