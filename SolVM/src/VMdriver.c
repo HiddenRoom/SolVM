@@ -3,6 +3,7 @@
 #include "include/VM.h"
 
 #include <stdint.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -45,6 +46,8 @@ int main(int argc, char **argv)
     vm->currentIns = inputFile + vm->execAddr;
     instructions[vm->currentIns[0]](vm);
   }
+
+  free(vm);
 
   return 0;
 }

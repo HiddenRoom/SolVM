@@ -6,8 +6,20 @@
 #include <stdint.h>
 #include <ctype.h>
 #include <endian.h>
+  
+__attribute__((always_inline))inline void free_assembler(assemblerT *assembler)
+{
+  uint32_t i;
 
-uint64_t _skip_whitespace(const char *inputFile, uint64_t offset)
+  for(i = 0; i < assembler->lexedInput->tokenNum; i++)
+    free(assembler->lexedInput->tokenVals[i]);
+
+  free(assembler->lexedInput->tokenVals);
+  free(assembler->lexedInput);
+  free(assembler);
+}
+
+static uint64_t _skip_whitespace(const char *inputFile, uint64_t offset)
 {
   while(!isalnum(inputFile[offset]))
     offset++;
@@ -15,7 +27,7 @@ uint64_t _skip_whitespace(const char *inputFile, uint64_t offset)
   return offset;
 }
 
-int8_t _reg_get(char *regStr) /* this function could be replaced with a hashTable but that would be less portable and only provide a marginal speed increase */
+static int8_t _reg_get(char *regStr) /* this function could be replaced with a hashTable but that would be less portable and only provide a marginal speed increase */
 {
   switch(regStr[1])
   {
@@ -32,7 +44,7 @@ int8_t _reg_get(char *regStr) /* this function could be replaced with a hashTabl
   return -1;
 }
 
-bool _is_ins(char *insStr)
+static bool _is_ins(char *insStr)
 {
   if(strcmp(insStr, "JMP") == 0) 
   {
@@ -102,7 +114,7 @@ bool _is_ins(char *insStr)
   return false;
 }
 
-lexerT *_lexer_init(const char *inputFile, uint64_t fileLen)
+static lexerT *_lexer_init(const char *inputFile, uint64_t fileLen)
 {
   uint64_t i;
   uint64_t spaceNum = 0; /* spaceNum will determine tokenNum's value since each token in the inputFile will be separated by at least a space */
@@ -149,7 +161,7 @@ lexerT *_lexer_init(const char *inputFile, uint64_t fileLen)
   return result;
 }
 
-void _copy_val(assemblerT *assembler)
+static void _copy_val(assemblerT *assembler)
 {
   uint16_t tmpInsHold;
 
@@ -158,7 +170,7 @@ void _copy_val(assemblerT *assembler)
   memcpy((assembler->instruct) + 2, &tmpInsHold, sizeof(uint16_t));
 }
 
-void _two_reg(assemblerT *assembler)
+static void _two_reg(assemblerT *assembler)
 {
     assembler->instruct[2] = 0x00; /* unused */
 

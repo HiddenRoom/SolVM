@@ -24,6 +24,8 @@ typedef struct assemblerStruct
 
 assemblerT *assembler_init(const char *inputFile, uint64_t fileLen); /* only needs parameters to pass them to _lexer_init */
 
+void free_assembler(assemblerT *assembler);
+
 void parse_tokens_to_ins(assemblerT *assembler); /* will implement logic for each instruction */
 
 #endif

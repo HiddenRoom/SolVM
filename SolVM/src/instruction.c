@@ -15,9 +15,13 @@ void JMP(vmT *vm)
 
 void JNE(vmT *vm) 
 {
-  if(vm->flagReg[0] == 0 && vm->flagReg[1] == 0)
+  if(vm->flagReg[0] || vm->flagReg[1])
   {
     vm->execAddr = INS_VAL;
+  }
+  else
+  {
+    vm->execAddr += 4;
   }
 }
 

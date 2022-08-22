@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-std=gnu89 -g3 -ggdb -O0 -Wall -Wpedantic -Wextra
+CFLAGS=-std=gnu89 -march=native -g3 -ggdb -O0 -Wall -Wpedantic -Wextra
 
 asmtest: src/assembler.c src/include/assembler.h src/assemblertest.c
 	$(CC) $(CFLAGS) -c -o assembler.o src/assembler.c

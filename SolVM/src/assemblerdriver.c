@@ -2,6 +2,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -51,6 +52,8 @@ int main(int argc, char **argv)
     parse_tokens_to_ins(assembler);
     memcpy(outputFile + (INS_NUM * (i * sizeof(uint8_t))), assembler->instruct, INS_NUM * sizeof(uint8_t));
   }
+
+  free_assembler(assembler);
 
   close(fdIn);
   close(fdOut);
