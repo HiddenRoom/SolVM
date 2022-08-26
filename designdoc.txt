@@ -1,0 +1,47 @@
+GOALS:
+16 bit arch
+32 bit instruction length: 8 bit opcode 8 bit operand 16 bit value
+ Emulator will need endian.h since bytecode is always big endian
+
+
+8 registers named R0 (0x00), R1 (0x01), R2 (0x02), etc
+
+cmp flag will be two uint8_t upon a greater than result the bools will be 1 0 upon a less than result they will be 0 1 and upon an equal result they will be 0 0
+
+for below examples when a register is needed R5 will be used unless otherwise specified, example memory address will be 0xFEED, example value will be 0xBEEF
+
+JMP jump unconditional (opcode) 0x00 (unused) 0x00 (address) 0xFE (address cont.) 0xED
+JNE jump if not equal (opcode) 0x01 (unused) 0x00 (address) 0xAB (address cont.) 0xCD
+CMP compare the values within two registers (opcode) 0x02 (register) 0x05 (unused) 0x00 (register 6) 0x06
+MOV: implements all below instructions, for LDM give addrs in hex for LDV in decimal
+  LDV load value into register (opcode) 0x03 (register) 0x05 (value) 0xBE (value cont.) 0xEF
+  LDR load register value into register (opcode) 0x04 (register) 0x05 (unused) 0x00 (register 6) 0x06
+  LDM load contents of memory address into register (opcode) 0x05 (register) 0x05 (address) 0xFE (address cont.) 0xED
+STR load value in register into memory address (opcode) 0x06 (register) 0x05 (address) 0xFE (address cont.) 0xED
+ADD increase the value in a register by value in another register (opcode) 0x07 (register) 0x05 (unused) 0x00 (register 6) 0x06
+SUB decrease the value in a register by value in another register (opcode) 0x08 (register) 0x05 (unused) 0x00 (register 6) 0x06
+BXR bitwise xor value in one register with the value in another (opcode) 0x09 (register) 0x05 (unused) 0x00 (register 6) 0x06
+BOR bitwise or value in one register with the value in another (opcode) 0x0A (register) 0x05 (unused) 0x00 (register 6) 0x06
+BND bitwise and value in one register with the value in another (opcode) 0x0B (register) 0x05 (unused) 0x00 (register 6) 0x06
+BNT biwise not value in a register (opcode) 0x0C (register) 0x05 (unused) 0x00 (unused) 0x00
+HLT halt just makes cpu hang (opcode) 0x0D (unused) 0x00 (unused) 0x00 (unused) 0x00
+NOP no operation (opcode) 0x0E (unused) 0x00 (unused) 0x00 (unused) 0x00
+
+TODO:
+
+Assembler
+
+First step to parse labels and add their names and addresses to an array for easy substitution later
+
+Emulator
+
+IMPLEMENTATIONS:
+
+LDV R6, 10 -> 0x04 0x06 0x00 0x0A
+LDV R4, 3000 -> 0x04 0x04 0x0B 0xB8
+LDV R5, 1000 -> 0x04 0x05 0x03 0xE8
+LDR R3, R4 -> 0x05 0x03 0x00 0x04
+SUB R3, R5 -> 0x09 0x03 0x00 0x05
+ADD R3, R6 -> 0x08 0x03 0x00 0x06
+CMP R3, R4 -> 0x03 0x03 0x00 0x04
+JNE 19 -> 0x01 0x00 0x00 0x14
