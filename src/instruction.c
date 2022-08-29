@@ -25,16 +25,11 @@ void JNE(vmT *vm)
   }
 }
 
-<<<<<<< HEAD
 void CMV(vmT *vm) 
-=======
-void CMP(vmT *vm) 
->>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 {
   /* since 1 1 is never a possibler value for the flag register 
    * conditional jump instructions could just check one byte (excluding
    * JNE) but here both bytes are set if > or < just for clarity */
-<<<<<<< HEAD
   if(REG(1) > INS_VAL)
   {
     vm->flagReg[0] = 1;
@@ -56,8 +51,6 @@ void CMP(vmT *vm)
 
 void CMR(vmT *vm) 
 {
-=======
->>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
   if(REG(1) > REG(3))
   {
     vm->flagReg[0] = 1;
@@ -77,7 +70,6 @@ void CMR(vmT *vm)
   vm->execAddr += 4;
 }
 
-<<<<<<< HEAD
 void CMM(vmT *vm) 
 {
   if(REG(1) > vm->RAM[INS_VAL])
@@ -99,8 +91,6 @@ void CMM(vmT *vm)
   vm->execAddr += 4;
 }
 
-=======
->>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 void LDV(vmT *vm) 
 {
   REG(1) = INS_VAL;

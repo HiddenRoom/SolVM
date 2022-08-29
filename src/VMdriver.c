@@ -19,11 +19,7 @@ int main(int argc, char **argv)
   uint32_t inLen = lseek(fdIn, 0, SEEK_END);
   uint8_t *inputFile;
 
-<<<<<<< HEAD
   instruct instructions[] = {JMP, JNE, CMV, CMR, CMM, LDV, LDR, LDM, STR, ADD, SUB, BXR, BOR, BND, BNT, INT, HLT, NOP};
-=======
-  instruct instructions[] = {JMP, JNE, CMP, LDV, LDR, LDM, STR, ADD, SUB, BXR, BOR, BND, BNT, INT, HLT, NOP};
->>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
   vmT *vm;
 
