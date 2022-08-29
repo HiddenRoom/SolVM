@@ -58,6 +58,9 @@ static bool _is_ins(char *insStr)
   {
     return true;
   }
+<<<<<<< HEAD
+  else if(strcmp(insStr, "MOV") == 0) 
+=======
   else if(strcmp(insStr, "LDV") == 0) 
   {
     return true;
@@ -67,6 +70,7 @@ static bool _is_ins(char *insStr)
     return true;
   }
   else if(strcmp(insStr, "LDM") == 0) 
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
   {
     return true;
   }
@@ -183,6 +187,19 @@ static void _two_reg(assemblerT *assembler)
     assembler->instruct[3] = _reg_get(assembler->lexedInput->tokenVals[assembler->tokenReadOffset]);
 }
 
+<<<<<<< HEAD
+static void _op_parse(assemblerT *assembler, uint8_t regOpcode, uint8_t memOpcode, uint8_t litValOpcode)
+{
+  if(assembler->lexedInput->tokenVals[assembler->tokenReadOffset + 2][0] == 'R') 
+  {
+    assembler->instruct[0] = regOpcode;
+
+    _two_reg(assembler);
+  }
+  else if(isdigit(assembler->lexedInput->tokenVals[assembler->tokenReadOffset + 2][0])) 
+  {
+    assembler->instruct[0] = litValOpcode;
+=======
 static void _mov_parse(assemblerT *assembler)
 {
   if(assembler->lexedInput->tokenVals[assembler->tokenReadOffset][1] == 'R') 
@@ -194,6 +211,7 @@ static void _mov_parse(assemblerT *assembler)
   else if(assembler->lexedInput->tokenVals[assembler->tokenReadOffset][1] == 'x') 
   {
     assembler->instruct[0] = 0x05;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
     assembler->tokenReadOffset++;
 
@@ -205,7 +223,11 @@ static void _mov_parse(assemblerT *assembler)
   }
   else
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = memOpcode;
+=======
     assembler->instruct[0] = 0x03;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
     assembler->tokenReadOffset++;
 
@@ -213,7 +235,13 @@ static void _mov_parse(assemblerT *assembler)
 
     assembler->tokenReadOffset++;
 
+<<<<<<< HEAD
+    assembler->lexedInput->tokenVals[assembler->tokenReadOffset] = assembler->lexedInput->tokenVals[assembler->tokenReadOffset] + 1;
     _copy_val(assembler);
+    assembler->lexedInput->tokenVals[assembler->tokenReadOffset] = assembler->lexedInput->tokenVals[assembler->tokenReadOffset] - 1;
+=======
+    _copy_val(assembler);
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
   }
 }
 
@@ -261,6 +289,19 @@ void parse_tokens_to_ins(assemblerT *assembler) /* will implement logic for pars
 
     _copy_val(assembler);
   }
+<<<<<<< HEAD
+  else if(strcmp(tokenStrs[assembler->tokenReadOffset], "CMP") == 0) 
+  {
+    _op_parse(assembler, 0x03, 0x04, 0x02);
+  }
+  else if(strcmp(tokenStrs[assembler->tokenReadOffset], "MOV") == 0) 
+  {
+    _op_parse(assembler, 0x06, 0x07, 0x05);
+  }
+  else if(strcmp(tokenStrs[assembler->tokenReadOffset], "STR") == 0) 
+  {
+    assembler->instruct[0] = 0x08;
+=======
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "MOV") == 0) 
   {
     _mov_parse(assembler);
@@ -304,6 +345,7 @@ void parse_tokens_to_ins(assemblerT *assembler) /* will implement logic for pars
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "STR") == 0) 
   {
     assembler->instruct[0] = 0x06;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
     assembler->tokenReadOffset++;
 
@@ -315,37 +357,61 @@ void parse_tokens_to_ins(assemblerT *assembler) /* will implement logic for pars
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "ADD") == 0) 
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x09;
+=======
     assembler->instruct[0] = 0x07;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
     _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "SUB") == 0) 
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x0A;
+=======
     assembler->instruct[0] = 0x08;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
     _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "BXR") == 0) 
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x0B;
+=======
     assembler->instruct[0] = 0x09;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
     _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "BOR") == 0) 
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x0C;
+=======
     assembler->instruct[0] = 0x0A;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
     _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "BND") == 0) 
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x0D;
+=======
     assembler->instruct[0] = 0x0B;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
     _two_reg(assembler);
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "BNT") == 0) 
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x0E;
+=======
     assembler->instruct[0] = 0x0C;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
     
     assembler->instruct[1] = _reg_get(tokenStrs[assembler->tokenReadOffset]);
 
@@ -353,7 +419,11 @@ void parse_tokens_to_ins(assemblerT *assembler) /* will implement logic for pars
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "INT") == 0) 
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x0F;
+=======
     assembler->instruct[0] = 0x0D;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
     assembler->instruct[1] = 0x00;
 
     assembler->tokenReadOffset++;
@@ -362,17 +432,29 @@ void parse_tokens_to_ins(assemblerT *assembler) /* will implement logic for pars
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "HLT") == 0) 
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x10;
+=======
     assembler->instruct[0] = 0x0E;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
     memset((assembler->instruct) + 1, 0, 3 * sizeof(uint8_t));
   }
   else if(strcmp(tokenStrs[assembler->tokenReadOffset], "NOP") == 0) 
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x11;
+=======
     assembler->instruct[0] = 0x0F;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
     memset((assembler->instruct) + 1, 0, 3 * sizeof(uint8_t));
   }
   else /* turns anything unrecognized into NOP */
   {
+<<<<<<< HEAD
+    assembler->instruct[0] = 0x11;
+=======
     assembler->instruct[0] = 0x0F;
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
     memset((assembler->instruct) + 1, 0, 3 * sizeof(uint8_t));
   }
 

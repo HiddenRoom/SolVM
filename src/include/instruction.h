@@ -7,7 +7,15 @@ void JMP(vmT *vm);
 
 void JNE(vmT *vm);
 
+<<<<<<< HEAD
+void CMV(vmT *vm);
+
+void CMR(vmT *vm);
+
+void CMM(vmT *vm);
+=======
 void CMP(vmT *vm);
+>>>>>>> 21ae2f7d7b01c7b52329535c0f260c71c6517183
 
 void LDV(vmT *vm);
 
