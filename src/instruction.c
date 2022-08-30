@@ -1,6 +1,7 @@
 #include "include/instruction.h"
 
 #include <endian.h>
+#include <unistd.h>
 
 #define INS_VAL be16toh(*(uint16_t *)(&(vm->currentIns[2])))
 /* NOTE: input X is NOT the register this is refering
@@ -170,9 +171,7 @@ void INT(vmT *vm)
 
 void HLT(vmT *vm)
 {
-  while(0 < 1)
-  {
-  }
+  exit(vm->RAM[65535]);
 
   vm->execAddr += 4; /* never happens :v */
 }

@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <GL/glut.h>
 
 vmT *vm_init(uint8_t devNum, device *devs)
 {
@@ -11,4 +12,9 @@ vmT *vm_init(uint8_t devNum, device *devs)
   result->devs = devs;
 
   return result;
+}
+
+void vidMemDraw(vmT *vm)
+{
+  //();
 }
