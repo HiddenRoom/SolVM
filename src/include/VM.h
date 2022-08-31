@@ -4,6 +4,8 @@
 #define SXTN_BIT_MAX 65536
 #define REG_NUM 8
 #define INS_LEN 4
+#define ALPHA_VAL 255
+#define LINE_WIDTH 64
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -26,6 +28,6 @@ typedef struct VMStruct
 
 vmT *vm_init(uint8_t outDevNum, device *devs);
 
-void vidMemDraw(vmT *vm);
+void *vidMemDraw(void *vmPtr);
 
 #endif
