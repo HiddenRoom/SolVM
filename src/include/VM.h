@@ -28,6 +28,6 @@ typedef struct VMStruct
 
 vmT *vm_init(uint8_t outDevNum, device *devs);
 
-void *vidMemDraw(void *vmPtr);
+/* void vidMemDraw(vmT *vm); */
 
 #endif
