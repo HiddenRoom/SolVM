@@ -19,8 +19,6 @@ int main(int argc, char **argv)
   uint32_t inLen = lseek(fdIn, 0, SEEK_END);
   uint8_t *inputFile;
   
-  bool shouldDraw;
-
   instruct instructions[] = {JMP, JNE, CMV, CMR, CMM, LDV, LDR, LDM, STR, ADD, SUB, BXR, BOR, BND, BNT, INT, HLT, NOP};
 
   vmT *vm;

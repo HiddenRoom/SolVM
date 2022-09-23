@@ -2,6 +2,7 @@
 
 #include <endian.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #define INS_VAL be16toh(*(uint16_t *)(&(vm->currentIns[2])))
 /* NOTE: input X is NOT the register this is refering
