@@ -10,7 +10,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef void *(*device)(void *);
+typedef void *(*intHandler)(void *);
 
 typedef struct VMStruct
 {
@@ -22,11 +22,11 @@ typedef struct VMStruct
   uint16_t execAddr;
 
   uint16_t devNum;
-  device *devs; /* will be called by int instructions and must be defined in src/output.c and src/include/output.h */
+  intHandler *devs; /* will be called by int instructions and must be defined in src/output.c and src/include/output.h */
 } vmT;
 
 
-vmT *vm_init(uint8_t outDevNum, device *devs);
+vmT *vm_init(uint8_t outDevNum, intHandler *devs);
 
 /* void vidMemDraw(vmT *vm); */
 

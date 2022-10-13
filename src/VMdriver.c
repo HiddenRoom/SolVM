@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 
   vmT *vm;
 
-  device devs[] = {ascii_stdout};
+  intHandler devs[] = {ascii_stdout};
 
   if(argc < 2)
   {

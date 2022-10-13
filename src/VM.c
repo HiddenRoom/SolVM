@@ -5,7 +5,7 @@
 #include <unistd.h>
 /* #include <raylib.h> */
 
-vmT *vm_init(uint8_t devNum, device *devs)
+vmT *vm_init(uint8_t devNum, intHandler *devs)
 {
   vmT *result = calloc(1, sizeof(struct VMStruct));
 

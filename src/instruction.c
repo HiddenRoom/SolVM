@@ -165,6 +165,7 @@ void BNT(vmT *vm)
 
 void INT(vmT *vm)
 {
+  if(vm->devNum > INS_VAL)
   (vm->devs[INS_VAL])(vm);
 
   vm->execAddr += 4;
